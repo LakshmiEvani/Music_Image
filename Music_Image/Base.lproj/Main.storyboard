@@ -3,6 +3,8 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -50,14 +52,20 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <slider opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="2.5" translatesAutoresizingMaskIntoConstraints="NO" id="3Yy-nq-P0h">
-                                <rect key="frame" x="38" y="454" width="199" height="31"/>
+                                <rect key="frame" x="99" y="425" width="122" height="31"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.20000000000000001" height="1"/>
                                 <connections>
                                     <action selector="actionVolumeControl:" destination="ZC3-mO-3Gg" eventType="valueChanged" id="y3E-sx-3t1"/>
                                 </connections>
                             </slider>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWo-Ya-yIt">
-                                <rect key="frame" x="5" y="454" width="21" height="30"/>
-                                <state key="normal" title="Pause"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QWo-Ya-yIt">
+                                <rect key="frame" x="58" y="425" width="32" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="32" id="uwl-ee-3gs"/>
+                                </constraints>
+                                <state key="normal" title="Pause" image="Play and Pause">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
                                     <action selector="AudioPause:" destination="ZC3-mO-3Gg" eventType="touchUpInside" id="pGS-VV-gw1"/>
                                 </connections>
@@ -65,16 +73,15 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rdu-4L-xAA">
                                 <rect key="frame" x="5" y="20" width="310" height="370"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="370" id="40A-dH-qsb"/>
-                                    <constraint firstAttribute="width" constant="310" id="UwS-fB-7er"/>
+                                    <constraint firstAttribute="height" constant="370" id="6aN-co-paq"/>
+                                    <constraint firstAttribute="width" constant="310" id="Xje-lb-hgG"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-ib-gkd">
-                                <rect key="frame" x="270" y="454" width="19" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="19" id="CHf-Nt-VEb"/>
-                                </constraints>
-                                <state key="normal" title="Stop"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ek-ib-gkd">
+                                <rect key="frame" x="231" y="425" width="33" height="30"/>
+                                <state key="normal" title="Stop" image="Stop">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="AudioStop:" destination="ZC3-mO-3Gg" eventType="touchUpInside" id="nuP-Be-4MF"/>
                                 </connections>
@@ -82,14 +89,23 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="4ek-ib-gkd" firstAttribute="leading" secondItem="3Yy-nq-P0h" secondAttribute="trailing" constant="8" id="16U-kH-1sI"/>
-                            <constraint firstItem="4ek-ib-gkd" firstAttribute="leading" secondItem="3Yy-nq-P0h" secondAttribute="trailing" constant="8" id="4yJ-W7-II2"/>
-                            <constraint firstItem="3Yy-nq-P0h" firstAttribute="centerX" secondItem="tNl-Ru-d5F" secondAttribute="centerX" id="Jr2-nd-ouQ"/>
-                            <constraint firstItem="3Yy-nq-P0h" firstAttribute="centerX" secondItem="Rdu-4L-xAA" secondAttribute="centerX" id="LKt-Lc-gTU"/>
-                            <constraint firstItem="3Yy-nq-P0h" firstAttribute="leading" secondItem="tNl-Ru-d5F" secondAttribute="leadingMargin" constant="87" id="NjK-KL-4gs"/>
-                            <constraint firstItem="Rdu-4L-xAA" firstAttribute="top" secondItem="i4G-9S-Kqq" secondAttribute="bottom" id="iiw-Al-96P"/>
-                            <constraint firstItem="3Yy-nq-P0h" firstAttribute="top" secondItem="Rdu-4L-xAA" secondAttribute="bottom" constant="62" id="nSt-Ul-gkd"/>
-                            <constraint firstItem="4ek-ib-gkd" firstAttribute="leading" secondItem="QWo-Ya-yIt" secondAttribute="trailing" constant="211" id="rfi-pV-U0w"/>
+                            <constraint firstItem="Rdu-4L-xAA" firstAttribute="centerX" secondItem="tNl-Ru-d5F" secondAttribute="centerX" id="2jS-ah-92K"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="top" secondItem="Rdu-4L-xAA" secondAttribute="bottom" constant="35" id="36v-5D-GZH"/>
+                            <constraint firstItem="3Yy-nq-P0h" firstAttribute="leading" secondItem="QWo-Ya-yIt" secondAttribute="trailing" constant="11" id="37G-ij-ixX"/>
+                            <constraint firstItem="4ek-ib-gkd" firstAttribute="leading" secondItem="3Yy-nq-P0h" secondAttribute="trailing" constant="12" id="4n8-IX-cjw"/>
+                            <constraint firstItem="4ek-ib-gkd" firstAttribute="leading" secondItem="3Yy-nq-P0h" secondAttribute="trailing" constant="12" id="5hU-EL-o1B"/>
+                            <constraint firstItem="4ek-ib-gkd" firstAttribute="top" secondItem="Rdu-4L-xAA" secondAttribute="bottom" constant="35" id="BsI-TQ-rve"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="4ek-ib-gkd" secondAttribute="trailing" constant="36" id="Dbk-HQ-vAZ"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="centerY" secondItem="3Yy-nq-P0h" secondAttribute="centerY" id="FaK-7d-eUH"/>
+                            <constraint firstItem="4ek-ib-gkd" firstAttribute="baseline" secondItem="QWo-Ya-yIt" secondAttribute="firstBaseline" id="G9D-pD-LdG"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="top" secondItem="Rdu-4L-xAA" secondAttribute="bottom" constant="35" id="R98-H2-mHe"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="baseline" secondItem="4ek-ib-gkd" secondAttribute="firstBaseline" id="acN-yl-X9c"/>
+                            <constraint firstItem="4ek-ib-gkd" firstAttribute="top" secondItem="3Yy-nq-P0h" secondAttribute="top" id="ba5-q7-LrO"/>
+                            <constraint firstItem="WMK-ul-1S7" firstAttribute="top" secondItem="QWo-Ya-yIt" secondAttribute="bottom" constant="105" id="dW5-fY-gvq"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="leading" secondItem="tNl-Ru-d5F" secondAttribute="leadingMargin" constant="38" id="eak-gx-xWy"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="top" secondItem="3Yy-nq-P0h" secondAttribute="top" id="hpF-iG-Xhk"/>
+                            <constraint firstItem="Rdu-4L-xAA" firstAttribute="top" secondItem="i4G-9S-Kqq" secondAttribute="bottom" id="iNy-6Z-H2w"/>
+                            <constraint firstItem="QWo-Ya-yIt" firstAttribute="top" secondItem="Rdu-4L-xAA" secondAttribute="bottom" constant="35" id="kUz-GS-JkN"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -105,5 +121,9 @@
             <point key="canvasLocation" x="211" y="1021"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Play and Pause" width="32" height="32"/>
+        <image name="Stop" width="32" height="32"/>
+    </resources>
     <color key="tintColor" red="0.0" green="0.50196081400000003" blue="0.25098040700000002" alpha="1" colorSpace="calibratedRGB"/>
 </document>
