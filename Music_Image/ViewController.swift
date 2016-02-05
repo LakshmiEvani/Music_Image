@@ -15,11 +15,16 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, AVAudioP
     
     private var pageViewController: UIPageViewController?
     
+    
+    
+    
     // Initialize it right away here
+    
     private let contentImages = ["nature_pic_1.png",
         "nature_pic_2.png",
         "nature_pic_3.png",
         "nature_pic_4.png", "nature_pic_5.png"];
+    
     
     // MARK: - View Lifecycle
     override func viewDidLoad() {
@@ -27,9 +32,10 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, AVAudioP
         super.viewDidLoad()
         createPageViewController()
         setupPageControl()
-        
-    }
     
+        }
+
+
     private func createPageViewController() {
         
         let pageController = self.storyboard!.instantiateViewControllerWithIdentifier("PageController") as! UIPageViewController
@@ -44,7 +50,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, AVAudioP
             
             pageController.setViewControllers(startingViewControllers as? [UIViewController] as [UIViewController]?,
                 direction: UIPageViewControllerNavigationDirection.Forward, animated: false, completion: nil)
-            
+    
             
         }
         
@@ -52,6 +58,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, AVAudioP
         addChildViewController(pageViewController!)
         self.view.addSubview(pageViewController!.view)
         pageViewController!.didMoveToParentViewController(self)
+        
     }
     
     private func setupPageControl() {
@@ -91,6 +98,7 @@ class ViewController: UIViewController, UIPageViewControllerDataSource, AVAudioP
             let pageItemController = self.storyboard!.instantiateViewControllerWithIdentifier("ItemController") as! PageItemController
             pageItemController.itemIndex = itemIndex
             pageItemController.imageName = contentImages[itemIndex]
+            
             return pageItemController
         }
         
