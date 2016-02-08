@@ -37,14 +37,15 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
     @IBOutlet var contentImageView: UIImageView?
     
     @IBOutlet weak var volumeControl: UISlider!
+    var playbackTimer:NSTimer?
     
    
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        
         self.view.backgroundColor = UIColor.blackColor()
         contentImageView!.image = UIImage(named: imageName)
-        
         
         if let filePathFromSongsList = NSBundle.mainBundle().URLForResource (fileNames[itemIndex], withExtension: "mp3") {
             
@@ -57,29 +58,54 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
             print("Filepath is empty")
         }
         
-        volumeControl?.maximumValue = Float((audioPlayer?.duration)!)
+    
+        audioPlayer?.play()
         
-           audioPlayer?.play()
-
+        volumeControl?.continuous = true
+        
+        self.playbackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateProgress"), userInfo: nil, repeats: true)
+      
+       
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        if self.audioPlayer.playing {
+            self.audioPlayer.pause()
+            self.playbackTimer?.invalidate()
+        }
+    }
     
     
     @IBAction func actionVolumeControl(sender: UISlider) {
         
-        audioPlayer?.stop()
-        audioPlayer?.currentTime = 0.0
-        audioPlayer?.play()
-        
-        self.view.addSubview(wrapperView)
-        wrapperView.hidden = false
-        
-        
-        let volumeView = MPVolumeView(frame: wrapperView.bounds)
-        wrapperView.addSubview(volumeView)
-        
+        // if the track was playing store true, so we can restart playing after changing the track position
+        self.playbackTimer?.invalidate()
+        self.playbackTimer = nil;
+        var wasPlaying : Bool = false
+        if self.audioPlayer.playing  {
+            audioPlayer.pause()
+            wasPlaying = true
+        }
+        audioPlayer.currentTime = NSTimeInterval(round(sender.value))
+        updateProgress()
+        //starts playing track again it it had been playing
+        if (wasPlaying == true) {
+            audioPlayer.play()
+            self.playbackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateProgress"), userInfo: nil, repeats: true)
+            wasPlaying = false
+        }
+
         
         }
+    
+    func updateProgress() {
+        
+        volumeControl?.minimumValue = 0.0
+        volumeControl?.maximumValue = Float(audioPlayer.duration)
+        volumeControl?.setValue(Float(audioPlayer.currentTime), animated: true)
+    }
+    
     
     @IBOutlet weak var Stop: UIButton!
       var isPlaying = false
@@ -103,6 +129,7 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
             
             audioPlayer?.pause()
             isPlaying = false
+            
         } else {
             audioPlayer?.play()
             isPlaying = true
@@ -111,21 +138,17 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
     }
     
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    //- AVAudioPlayer delegate method - resets things when track finishe playing
+    func PlayerDidFinishPlaying(player: AVAudioPlayer!, successfully flag: Bool) {
+        if flag {
+            //playButton.selected = false
+            isPlaying = false
+            audioPlayer.currentTime = 0.0
+            updateProgress()
+            self.playbackTimer?.invalidate()
+            //updater.invalidate()
+        }
     }
-    
-    
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
