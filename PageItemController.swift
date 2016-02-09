@@ -43,6 +43,11 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        self.view.backgroundColor = UIColor.blackColor()
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         
         self.view.backgroundColor = UIColor.blackColor()
         contentImageView!.image = UIImage(named: imageName)
@@ -58,20 +63,20 @@ class PageItemController: UIViewController, AVAudioPlayerDelegate {
             print("Filepath is empty")
         }
         
-    
+        
         audioPlayer?.play()
         
         volumeControl?.continuous = true
         
         self.playbackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateProgress"), userInfo: nil, repeats: true)
-      
-       
+        
+
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        if self.audioPlayer.playing {
-            self.audioPlayer.pause()
+        if ((self.audioPlayer?.playing) != nil) {
+            self.audioPlayer!.pause()
             self.playbackTimer?.invalidate()
         }
     }
